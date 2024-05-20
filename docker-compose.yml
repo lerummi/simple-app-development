@@ -1,0 +1,16 @@
+---
+services:
+  basics:
+    build:
+      context: .
+      dockerfile: docker/basics/Dockerfile
+    x-bake:
+      tags:
+        - ${SOURCE_IMAGE}:latest
+        - ${SOURCE_IMAGE}:${IMAGE_TAG}
+    image: ${SOURCE_IMAGE}:${IMAGE_TAG}
+    command: start-notebook.sh --NotebookApp.token="" --NotebookApp.notebook_dir=/home/jovyan/work
+    volumes:
+      - ./simple-app-development/basics:/home/jovyan/work
+    ports:
+      - 8888:8888
